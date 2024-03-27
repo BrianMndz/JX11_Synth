@@ -1,6 +1,7 @@
 #pragma once
 
-#include "juce_audio_processors/juce_audio_processors.h"
+#include <JuceHeader.h>
+#include "Synth.h"
 
 //==============================================================================
 class JX11SynthAudioProcessor final : public juce::AudioProcessor
@@ -13,6 +14,7 @@ public:
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
+    void reset() override;
 
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
 
@@ -43,6 +45,13 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    //==============================================================================
+    void splitBufferByEvents(juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages);
+    void handleMIDI(uint8_t data_0, uint8_t data_1, uint8_t data_2);
+    void render(juce::AudioBuffer<float>& buffer, int sampleCount, int bufferOffset);
+
+    Synth synth;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (JX11SynthAudioProcessor)
 };
