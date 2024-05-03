@@ -1,0 +1,8 @@
+//
+// Created by Brian Mendoza on 03/04/24.
+//
+
+#ifndef JX11SYNTH_NOISEGENERATOR_H
+#define JX11SYNTH_NOISEGENERATOR_H
+
+#endif //JX11SYNTH_NOISEGENERATOR_H
