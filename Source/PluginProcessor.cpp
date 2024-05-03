@@ -206,7 +206,12 @@ void JX11SynthAudioProcessor::handleMIDI(uint8_t data_0, uint8_t data_1, uint8_t
 
 void JX11SynthAudioProcessor::render(juce::AudioBuffer<float> &buffer, int sampleCount, int bufferOffset)
 {
-    juce::ignoreUnused(buffer, sampleCount, bufferOffset);
+    float* outputBuffers[2] = {nullptr, nullptr};
+    outputBuffers[0] = buffer.getWritePointer(0, bufferOffset);
+    if (getTotalNumOutputChannels() > 1) {
+        outputBuffers[1] = buffer.getWritePointer(1, bufferOffset);
+    }
+    synth.render(outputBuffers, sampleCount);
 }
 
 void JX11SynthAudioProcessor::reset() {

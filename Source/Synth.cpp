@@ -25,6 +25,19 @@ void Synth::reset()
 
 void Synth::render(float** outputBuffers, int sampleCount)
 {
+    float* outputBufferLeft = outputBuffers[0];
+    float* outputBufferRight = outputBuffers[1];
+
+    for (int sampleIndex = 0; sampleIndex < sampleCount; ++sampleIndex) {
+        float output = 0.0f;
+        float noise = noiseGenerator.nextValue();
+        if (voice.note > 0) {
+            output = noise * (static_cast<float>(voice.velocity) / 127.0f) * 0.5f;
+        }
+        outputBufferLeft[sampleIndex] = output;
+        if (outputBuffers[1] != nullptr)
+            outputBufferRight[sampleIndex] = output;
+    }
 }
 
 void Synth::midiMessage(uint8_t data0, uint8_t data1, uint8_t data2)

@@ -7,6 +7,7 @@
 
 #include <JuceHeader.h>
 #include "Voice.h"
+#include "NoiseGenerator.h"
 
 class Synth
 {
@@ -25,6 +26,7 @@ private:
 
     float sampleRate;
     Voice voice;
+    NoiseGenerator noiseGenerator;
 };
 
 #endif //JX11SYNTH_SYNTH_H
